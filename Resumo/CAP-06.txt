@@ -1,0 +1,39 @@
+Capítulo 06 - Conhecendo e implementando interface
+Nesse capítulo aprendemos:
+
+⦁	Vamos resolver o problema de Cliente se autenticar, sem que ele herde FuncionarioAdministrador. Vamos usar interface!
+
+⦁	Interface é semelhante a classe abstrata, ou seja, não vamos cirar um objeto do tipo da interface. Outra caracteristica da interface é que não podemos manter estado, ou seja, guardar valor, pois interface não possui atributos, logo interface não tem construtor!
+
+⦁	A interface pode até ter properties, mas é uma propertie abstrata e sempre possui comportamento de função (igual fizemos na bonificacao). Ou seja, quem implementar a função que contenha propertie terá que possuir a mesma propertie anotada com override, só que agora esse properti será publica, não poderemos colocá-la como propertie.NESSE CASO DEVERIAMOS EVITAR CRIAR INTERFACE COM PROPERTIES E IMPLEMENTAÇÃO PADRÃO,POIS É A SENHA QUE FICARÁ PÚBLICA;
+
+⦁	Interface tem assinatura de método/função e diferente do Java, no kotlin podemos ter uma implementação padrao, ou seja, valerá para todos que implementam a interface;
+
+⦁	Para resolver nosso problema vamos cirar a interface Autenticavel:
+
+interface Autenticavel { 
+	fun autentica(senha: Int): Boolean 
+}
+
+⦁	A classe que vai implementar a interface usará o ":" igual na herança, mas não haverá o construtor. Agora se a classe que for implementar já estiver herdando alguma classe, basta colocar "," mais o nome da interface;
+
+⦁	Não podemos criar objetos do tipo da interface, ou seja, não podemos fazer: val autenticavel = Autenticavel(). Mas se uma classe implementa uma interface nõs podemos utilizar uma referencia do tipo da interface, ou seja, se Gerente implementa Autenticavel, nós podemos fazer: val autenticavel: Autenticavel = Gerente()
+
+⦁	No nosso exemplo a interface e a classe FuncionarioAdministrador tem o mesmo método, e há classe como Diretor que está implementando a interface e herdando de FuncionarioAdministrador. Como podemos indicar qual função autenticavel vamos utilizar?
+
+override fun autentica(senha: Int): Boolean { 
+	return super<FuncionarioAdministrador>.autentica(senha) 
+}
+
+Ou
+
+override fun autentica(senha: Int): Boolean { 
+	return super<Autenticavel>.autentica(senha) 
+}
+
+
+⦁	Pergunta:Durante esta aula, conhecemos as interfaces e as utilizamos para reutilizar o código com polimorfismo. Por qual motivo utilizamos as interfaces?
+
+Resposta:Para usar o polimorfismo em classes que tem o mesmo comportamento, mas não herdam da mesma classe.
+
+Justificativa: Podemos implementar interfaces em quaisquer classes sem carregar o legado da herança de uma classe que geralmente é implementada para atender um contexto específico e não permite a herança múltipla.

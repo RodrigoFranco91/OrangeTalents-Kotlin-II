@@ -1,0 +1,23 @@
+Capítulo 04 - Implementando classes e membors abstratos
+Nesse capítulo aprendemos:
+
+
+⦁	A classe Funcionario não representa nada na realidade, é apenas para generilizar funcionarios. Na vida real sempre temos um: Diretor, Gerente, Analista, etc. Não faz sentido criar um objeto do tipo Funcionario, mas faz sentido as vezes tratarmos um objeto Gerente com uma referencia do tipo Funcionario. Se não queremos criar um objeto do tipo funcionario "val funcionario = Funcionario()" devemos aplicar o conceito de classe abstrata! A classe funcionario será abstrata! Para isso basta antes da palavra open da class Funcionario colocarmos a palavra abastract, só que toda classe abstract já é open, logo podemos tirar "open". Ficará assim:
+
+	abstract class Funcionario
+
+⦁	Nova regra de negócio! Cada funcionário tem que ter seu próprio cálculo de bonificação. Não pode mais usar o super() da classe mãe. Poderiamos tirar da classe mãe o método bonificacao(), mas isso quebraria o Polimorfismo. Para resolver isso podemos tornar abstrato o membro (função) da class mãe (funcionario). Um membro/função abstrata não pode ter implementação. Vai ficar assim:
+
+	abstract val bonificacao: Double
+
+Tiramos a palavra open, porque todo abstract é open. E só podemos ter membro/função abstrata em classe abstrata! Com isso não será possível na classe filha usar super.bonificacao() 
+
+Com abstract no membro/função, toda classe que herdar de Funcionario terá que implementar o metodo bonificacao!
+
+⦁	Aplicar esse conceito na classe Conta.
+
+⦁	Ao tornar a classe Conta abstrato e seu membro saca em abstrato vamos ter que implementar a função saca em todos os filhos, e ao tentar subtrair o valor sacado do saldo (this.saldo) vamos ter um problema, pois deixamos o set do saldo em private. Como resolver? Deixar public fuciona mas é má prática nesse caso, pois ao subtrair saldo pode ter regra de negócio (ex: cobrar uma porcentagem). O que fazer? Substituir private por protected, assim classes filhas podem acessar o set também!
+
+⦁	Pergunta:Durante esta aula, praticamos o uso de classes e membros abstratos em diferentes contextos, seja para funcionários ou contas. Considerando o que foi visto em aula, marque as alternativas corretas:
+Respostas:
+Classes abstratas não permitem criar objetos/instâncias da classe. & Membros abstratos podem ser declarados apenas por classes abstratas.

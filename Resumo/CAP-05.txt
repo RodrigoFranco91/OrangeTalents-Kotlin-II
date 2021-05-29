@@ -1,0 +1,25 @@
+Capítulo 05 - Considerando herança em mais de uma classe
+Nesse capítulo aprendemos:
+
+⦁	Vamos agora de fato mexer com autenticação! Os funcionários do tipo Gerente e Diretor precisam efetuar o login para acessar o sistema interno!
+
+⦁	Vamos criar a classe SistemaInterno, para simular o sistema interno. Nessa classe poderíamos criar um método login para cada tipo de funcionario, um para gerente e outro para diretor! Essa é uma péssima idéia!
+
+⦁	Poderiámos usar o polimorfismo, ou seja, ter um método recebendo simplesmente um funcionario, ficando assim:
+
+fun login(funcionario: Funcionario){
+	}
+
+Mas funcionario não tem login, e se colocassemos na classe Funcionario a função autenticacao todo funcionario passaria a ter, por exemplo o Analista passaria a ter, mas ele não pode ter!
+
+⦁	A solução por enquanto será: Criar uma classe igual a classe Funcionario, com o nome de FuncionarioAdmin. Adicionar nessa classe a propertie senha e o membro autenticacao. Após isso a classe Diretor e Gerente passará a herdar de FuncionarioAdmin e não mais funcionário.
+
+Mas agora o metodo registra de CalculadoraBonificacao vai quebrar, pois lá ela tratava Diretor e Gerente como Funcionario, mas agora eles passaram a ser FuncionarioAdministrador e não mais Funcionario!
+
+⦁	Outra solução: Em algumas linguagens é permitido Herança Multipla, no Kotlin não podemos fazer isso, mas podemos fazer a Classe FuncionarioAdministrador ser filha da Classe Funcionario e as classes Diretor e Gerente passão a herdar de FuncionarioAdministrador.
+
+⦁	A metodologia adotada no item anterior (Herança de Herança) tem alguns problemas. Imagina que a regra de negócio mude, agora Cliente Externo poderá entrar no sistema interno. Vamos implementar isso. Vamos barrar no seguinte problema: teremos que fazer um cliente herdar de funcionário admin, para podermos logar no sistema interno e isso não faz nenhum sentido! No próximo capitulo vamos resolver isso!
+
+⦁	Pergunta:Durante este vídeo, criamos uma nova classe abstrata que herda de Funcionario, a FuncionaAdmin. O principal objetivo foi permitir a criação de funcionários com comportamentos de autenticação. Além de permitir a autenticação, por quais motivos consideramos essa técnica?
+Respostas:
+Para utilizar o polimorfismo de funcionários comuns e administradores ao mesmo tempo. & Para impedir que funcionários comuns reutilizem o código de autenticação.

@@ -1,0 +1,112 @@
+Capítulo 02 - Utilizando a herança
+Nesse capítulo aprendemos:
+
+
+⦁	No nosso projeto atualmente a classe Gerente (é um funcionario específico) tem todos as properties e funções que já escrevemos na classe Funcionario. Caso algo mude na classe Funcionario teríamos que mudar na classe Gerente, pois o que queremos é dizer que tudo que funcionário tem Gerente deve ter;
+
+⦁	Para representar isso na OO podemos usar a herança. No caso Gerente herdará Funcionario, e assim passará a ter tudo que Funcionario tem;
+
+⦁	Herança no Kotlin - Vamos fazer Gerente herdar Funcionario. Para isso basta ir no construtor de Gerente (primário ou secundário) e adicionar o trecho:  ": Funcionario()" . Note que que tivemos que usar o construtor de Funcionario!. Note também que as properties de Gerente viraram apenas atributos com o mesmo nome da classe Mãe(sem var e val) e que repassamos esses atributos para o contrutor de Funcionario (classe mãe). Ficou assim:
+
+class Gerente( 
+	nome: String, 
+	salario: Double, 
+	cpf: String, 
+	val senha: Int 
+) : Funcionario( 
+	nome = nome, 
+	cpf = cpf, 
+	salario = salario 
+)
+
+Dessa maneira poderemos criar um val pedro = Gerente(nome = "Pedro"...)
+
+⦁	O código ainda não está funcionando, pois padrão herança vem desabilitado. A classe tem que permitir ser herdada! No caso na classe Funcionario temos que antes da palavra class escrever: open, ficando assim:
+
+	open class Funcionario
+
+⦁	Criar a classe Diretor, fazé-la herdar de Funcionario e um Diretor tem que ter a propertie plr;
+
+⦁	Como na classe Funcionario tem o método bonificacao, toda classe que for filha de Funcionario também terá, só que cada filho tem um comportamento diferente para essa função. O que fazer para cada filho implementar essa função a sua maneira?
+
+Basta criar na classe filha a função com o mesmo nome da mãe, no caso bonificacao, adicionar um @override antes da assinatura do método, e também precisamos permitir que essa função seja re-escrita, para isso basta ir na classe mão e colocar antes da assinatura da função bonificacao() a palavra open. Ficando assim:
+
+//Na classe mãe:
+	open fun bonificacao(): Double ...
+
+//Na classe filha:
+	override fun bonificacao(): Double { 
+		return salario * 0.10 
+	}
+
+⦁	Transformando uma função em properties! Se uma função faz apenas uma coisa, só retorna um valor, não faz outras operações e nem chama outras funções, podemos transformar essa função em properties. Por exemplo a função bonificacao, ela só retorna um valor que é salario * porcentagem. Para transformá-la podemos selecionar a função bonificacao, clicar "alt + enter" e escolhera opção: Convert function to property. Agora essa função ficará:
+
+	open val bonificacao: Double 
+		get() { 
+		return salario * 0.10 
+	}
+
+Agora nós mesmos podemos deixar esse código assim:
+
+	open val bonificacao: Double get() =  salario * 0.10
+
+Removemos as "{}", removemos a palavra "return" e adicionei o "="
+Poderíamos ainda deixar implícito o tipo, ficando assim:
+
+	open val bonificacao get() =  salario * 0.10
+
+Mas a forma anterior é mais usada, pos dauqela forma amarramos o tipo de bonificação!
+
+Se quisermos retornar (de properties para function) basta selecionar a palavra fonifacao, clicar "alt + enter" e selecionar a opção: Convert property to function.
+
+⦁	Utilizando o Super (Herança):
+Agora a regra de negócio mudou! Toda bonificação vai dar somente 10% (é o código usado na classe Funcionario - Classe que é a mãe). Quando for Gerente o retorno agora será seu salário mais a bonificação de 10%. Quando for Diretor o retorno será o seu salário, a bonificação de 10% e o PRL.
+
+Poderíamos copiar o código da classe mãe, que já faz isso, mas a boa pratica é usar o super(). Esse super é a chamada do código que está na classe mae!
+
+Nas classes filhas o método bonificação vai ficar:
+
+//Nosso método bonificao mae está no formato propertie, logo ficará assim:
+
+	override val bonificacao: Double 
+		get() { 
+			return super.bonificacao + salario + prl 
+	}
+
+//Nosso método bonificao mae estando no formato function, ficará assim:
+
+	override fun bonificacao(): Double {
+		return super.bonificacao() + salario + prl 
+	}
+				
+
+
+⦁	Herança Utilizando o Construtor secundário ficaria assim:
+
+class Gerente : Funcionario {
+
+    val senha: Int
+
+    constructor(
+        nome: String,
+        cpf: String,
+        salario: Double,
+        senha: Int
+    ) : super(
+        nome = nome,
+        cpf = cpf,
+        salario = salario
+    ) {
+        this.senha = senha
+    }
+
+    //métodos
+
+}
+
+
+⦁	Pergunta: Durante esta aula, utilizamos a herança para implementar diferentes tipos de funcionários da Bytebank. Por quais motivos essa técnica foi considerada?
+Respostas: Para reutilizar membros em comum entre classes que herdam a classe mãe. & Para criar novas classes, sem replicar código que existe em uma classe.
+
+
+

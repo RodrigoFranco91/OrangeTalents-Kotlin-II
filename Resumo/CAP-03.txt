@@ -1,0 +1,51 @@
+Capítulo 03 - Reutilizando código com polimorfismo
+Nesse capítulo aprendemos:
+
+⦁	Surgiu mais um requisito no nosso projeto. Agora temos que ter uma calculadorá que somará o total de bonificação que estamos pagando a todos os funcionários!
+
+
+⦁	Para essa funcionalidade devemos primeiro criar a classe ClaculadoraBonificacao. Nessa classe poderíamos criar 3 métodos, um para cada tipo de funcionario, e a bonificação de cada um somar na mesma variável, ficaria assim:
+
+
+class CalculadoraBonificacao {
+
+    var total: Double = 0.0
+        private set
+
+    fun registra(funcionario: Funcionario){
+        this.total += funcionario.bonificacao
+    }
+    fun registra(diretor: Diretor){
+        this.total += diretor.bonificacao
+    }
+    fun registra(gerente: Gerente){
+        this.total += gerente.bonificacao
+    }
+
+}
+
+⦁	O código anteriro funciona, mas não é boa prática ficar repetindo código! Dificulta manutenção! Devemos usar o polimorfismo nesse caso, pois o que muda em cada método é o tipo de referência de objetos que recebemos!
+
+⦁	Vamos aplicar o Polimorfismo!
+Vamos deixar a classe CalculadoraBonificacao somente com um  método, ficando assim:
+
+    fun registra(funcionario: Funcionario){
+        this.total += funcionario.bonificacao
+    }
+
+
+O código continurá funcionando! Pois já estamos usando o polimorfismo, pois la na classe main estamos enviando para CalculadoraBonificacao() funcionario, gerente e diretor, e todas essas referencias são do tipo funcionario, seja diretamente ou pela herança!
+
+Dentro do método registra() só vamos conseguir usar coisas que o funcionario tem, pois funcionario é o tipo de referencia mais genérico. Logo dentro desse método não seria possivel fazer um funcionario.autentica(), pois essa função não está presente em funcionário! Mas note, re-utilisamos o que é comum para todos, só que cada objeto usará a sua própria Implementação! A prova disso é que o método bonificacao de gerente é diferente do funcionario e é diferente do diretor, mas a conta ficou correta! Ou seja, conseguimos pegar o método bonificacao() do proprio objeto passado como parâmetro!
+
+⦁	Aplicamos esses recursos também em conta. Criamos ContaPoupanca e ContaCorrente.
+
+
+⦁	Pergunta: Ao implementar o código da calculadora de bonificação para cada funcionário, inicialmente repetimos código criando funções similares. Para resolver o problema, consideramos o uso do polimorfismo. Marque as alternativas verdadeiras a respeito do polimorfismo
+
+Resposta:
+O polimorfismo permite referenciar um objeto para uma variável que tem um supertipo da instância. & Ao utilizar o polimorfismo é possível reutilizar o código de membros da classe mãe em objetos filhos.
+
+Justificativa:
+O polimorfismo permite criar vários objetos e atribuí-los para variáveis do tipo que os objetos herdam, por exemplo, um Gerente ou Diretor considerando que ambos são funcionários. &  A partir dessa técnica evitamos a replicação de código, mantendo uma única chamada de um comportamento em comum entre a classe mãe e seus filhos.
+

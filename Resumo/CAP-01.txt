@@ -1,0 +1,19 @@
+Capítulo 01 - Criando novas classes
+Nesse capítulo aprendemos:
+
+⦁	Vamos organizar nosso projeto, cada fun/classe ficará em um arquivo separado;
+
+⦁	Criando as novas classes: temos que cadastrar um funcionario (nome, cpf, salario) e (calcular bonificação, autenticação), logo temos que ter a classe Funcionario;
+
+⦁	Um funcionário pode ser de vários tipos (funcionario, gerente e diretor) e dependendo do seu tipo ele tera bonificação específica. Aqui no modo procedural poderiamos encher o código de if(), mas com Oritentação a Objetos podemos usar Herança, Polimorfismo e outros recursos da orientação a objetos - veremos isso nos próximos capitulos.
+
+⦁	Para cada tipo de funcionario vamos criar uma classe, ou seja, uma classe pra gerente e diretor e essas classes devem herdar a classe Funcionário, assim os gerentes/diretores vão  ter suas properties e funções específicas e as comuns para todos funcionários.
+
+	Sem usar Herança, cada classe Específica, como Gerente ele terá que ter as mesmas properties que a classe Funcionário já tem, ou seja, vamos repetir muita coisa.
+
+⦁	Pergunta do capítulo:Ao tentar implementar a lógica para representar mais de um funcionário dentro da classe Funcionario, notamos alguns problemas que não são bem vindos no paradigma orientado a objetos. Considerando o que estudamos, quais são esses problemas? 
+Resposta: Ao tentar representar vários funcionários, temos o problema de manutenção de código para cada funcionário diferente. & Aumenta a complexidade de implementação de comportamentos da classe que precisam ser específicos.
+Justificativas: Ao usar tipos de funcionários diferentes dentro da mesma classe, temos problemas de manutenção de código todas as vezes que precisamos ajustar o código com lógica específica para cada tipo. & Em vez de manter uma única responsabilidade, a classe precisa sempre verificar qual é o tipo de funcionário antes de fazer algum comportamento.
+
+
+
